@@ -2,7 +2,7 @@ body {
     padding-top: 60px;
 }
 
-.off #off,
-.on #on {
+.off .hide-off,
+.on .hide-on {
     display: none;
 }
