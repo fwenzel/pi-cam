@@ -16,23 +16,26 @@ def home():
 
 @app.route('/vcontrol', methods=['POST'])
 def vcontrol():
+    """AJAX action: video controls."""
     controls = {
         'on': server_on,
         'off': server_off,
         'restart': server_restart,
     }
     if request.form['action'] in controls:
-        controls[request.form['action']]()
-        return 'ok'
+        success = controls[request.form['action']]()
+        return 'ok' if success else abort(500)
     else:
         abort(400)
 
 
 def server_on():
-    return subprocess.Popen(settings.START_SERVER, shell=True)
+    subprocess.Popen(settings.START_SERVER, shell=True)
+    return running()
 
 def server_off():
-    return subprocess.Popen(settings.STOP_SERVER, shell=True)
+    subprocess.Popen(settings.STOP_SERVER, shell=True)
+    return not running()
 
 def server_restart():
     server_off()
