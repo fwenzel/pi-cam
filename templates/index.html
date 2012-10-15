@@ -1,13 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Bootstrap 101 Template</title>
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  <h1>Hello, world!</h1>
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to pi-cam.</h1>
+
+<p class="lead">Ohai. Let's see what's going on!</p>
+
+<div class="row">
+  <div id="controls" class="{{ 'on' if running else 'off' }} span9" data-vctrl="{{ url_for('vcontrol') }}">
+    <button id="on" class="btn btn-primary">Switch on</button>
+    <button id="off" class="btn">Switch off</button>
+  </div>
+</div>
+
+<div class="row">
+  <div id="cam" class="span9" data-imgsrc="{{ settings['CAM_SRC'] }}">
+      {% if running %}
+        <img src="{{ settings['CAM_SRC'] }}">
+      {% endif %}
+  </div>
+</div>
+{% endblock %}
