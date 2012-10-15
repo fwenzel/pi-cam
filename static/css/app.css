@@ -6,3 +6,16 @@ body {
 .on .hide-on {
     display: none;
 }
+
+#curtain {
+	background: url('../img/red-curtain.jpg') center;
+	height: 600px;
+	text-align: center;
+	width: 800px;
+}
+#curtain p {
+	color: #fff;
+	display: inline-block;
+	font-size: 36pt;
+	line-height: 600px;
+}

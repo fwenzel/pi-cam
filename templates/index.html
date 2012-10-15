@@ -16,9 +16,12 @@
 
 <div class="row">
   <div id="cam" class="span9" data-imgsrc="{{ settings['CAM_SRC'] }}">
-      {% if running %}
-        <img src="{{ settings['CAM_SRC'] }}">
-      {% endif %}
+    {% if running %}
+      <img src="{{ settings['CAM_SRC'] }}">
+    {% endif %}
+    <div id="curtain" class="hide-on">
+      <p>The webcam is currently off.</p>
+    </div>
   </div>
 </div>
 {% endblock %}
