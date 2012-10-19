@@ -3,7 +3,10 @@ body {
 }
 
 .off .hide-off,
-.on .hide-on {
+.on .hide-on,
+.loggedin #login,
+.loggedout #logout,
+.loggedout .loggedinonly {
     display: none;
 }
 
@@ -18,4 +21,3 @@ body {
 	display: inline-block;
 	font-size: 36pt;
 	line-height: 600px;
-}

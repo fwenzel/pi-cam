@@ -7,14 +7,21 @@
 
 <p class="lead">Ohai. Let's see what's going on!</p>
 
-<div class="row">
+<p>
+  <button id="logout" class="btn">Log out</button>
+  <button id="login" class="btn">Log in with Persona &raquo;</button>
+</p>
+
+<div id="main-notices"></div>
+
+<div class="row loggedinonly">
   <div id="controls" class="span9" data-vctrl="{{ url_for('vcontrol') }}">
     <button id="on" class="btn btn-primary hide-on">Switch on</button>
     <button id="off" class="btn hide-off">Switch off</button>
   </div>
 </div>
 
-<div class="row">
+<div class="row loggedinonly">
   <div id="cam" class="span9" data-imgsrc="{{ settings['CAM_SRC'] }}">
     {% if running %}
       <img src="{{ settings['CAM_SRC'] }}">

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import subprocess
 
-from flask import Flask, abort, render_template, request
+import browserid
+from flask import Flask, abort, jsonify, render_template, request, session
 
 import settings
 
 
 app = Flask(__name__)
-
+Flask.secret_key = settings.SECRET_KEY
 
 @app.route('/')
 def home():
@@ -29,6 +30,34 @@ def vcontrol():
         abort(400)
 
 
+@app.route('/authenticate', methods=['POST'])
+def authenticate():
+    """Authenticate user with Persona."""
+    import sys
+    sys.stderr.write(settings.SITE_URL)
+    data = browserid.verify(request.form['assertion'],
+                            settings.SITE_URL)
+
+    # Check against allowed users list
+    if data['email'] in settings.ALLOWED_USERS:
+        session['email'] = data['email']
+        response = jsonify({'message': 'login successful'})
+        response.status_code = 200
+        return response
+    else:
+        abort(403)
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    """Log user out of app."""
+    session.pop('email', None)
+    response = jsonify({'message': 'logout successful'})
+    response.status_code = 200
+    return response
+
+
+# Server controls
 def server_on():
     subprocess.Popen(settings.START_SERVER, shell=True)
     return running()
